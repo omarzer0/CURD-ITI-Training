@@ -1,5 +1,10 @@
 <?php
 
+if($_COOKIE == null){
+    echo "cookies is null";
+    header('location:index.php');
+}
+
 $conn = new mysqli("localhost", "root", "root","mydb");
 
 $userId = $_GET['id'];
@@ -18,7 +23,7 @@ $pass = $row['pass'];
 
 ?>
 
-<form action="server.php" method="get">
+<form action="validate.php" method="post">
 <table>
     <input type="hidden" name="id" value=<?php echo"$rowId"?> >
 

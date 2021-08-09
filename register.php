@@ -1,9 +1,19 @@
-<html>
+<?php
+
+if($_COOKIE == null){
+    echo "cookies is null";
+    header('location:index.php');
+}
 
 
-<body>
-    <form action="verify.php" method="post">
+echo '
+    <form action="validate.php" method="post">
         <table>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" name="email"></td>
+            </tr>
+
             <tr>
                 <td>Username</td>
                 <td><input type="text" name="username"></td>
@@ -18,8 +28,7 @@
             </tr>
         </table>
     </form>
+';
 
-
-</body>
-</html>
+?>
 

@@ -3,6 +3,12 @@
      if (confirm('Are you sure you want to proceed?')==true){
         console.log('yes');
         "<?php
+           if($_COOKIE == null){
+            echo "cookies is null";
+            header('location:index.php');
+        }
+
+
             $conn = new mysqli("localhost", "root", "root","mydb");
 
             $userId = $_GET['id'];

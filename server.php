@@ -1,5 +1,12 @@
 <?php
 
+if($_COOKIE == null){
+    echo "cookies is null";
+    header('location:index.php');
+}
+// var_dump($_COOKIE);
+
+
 $conn = new mysqli("localhost", "root", "root","mydb");
 
  if ($conn->connect_error) {
@@ -7,42 +14,46 @@ $conn = new mysqli("localhost", "root", "root","mydb");
 } 
 
 $conn->query("
-CREATE TABLE in not exsist myuser(
+CREATE TABLE IF NOT EXISTS myuser(
     id int PRIMARY KEY NOT null AUTO_INCREMENT,
     email varchar(50),
     username varchar(50),
 	pass varchar(50)
 );
 ");
-$id = $_GET['id'];
-$email = $_GET['email'];
-$username = $_GET['username'];
-$password = $_GET['password'];
 
-if($_GET['add']){
-    $conn = new mysqli("localhost", "root", "root","mydb");
+$id = $_POST['id'];
+$email = $_POST['email'];
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-    $insertSql = "
-    INSERT INTO myuser (email, username, pass)
-    VALUES ('$email', '$username', '$password')
-    ";
 
-     $conn->query($insertSql);
+// if($_POST['add']){
+//     // $conn = new mysqli("localhost", "root", "root","mydb");
 
-}else{
+//     // $insertSql = "
+//     // INSERT INTO myuser (email, username, pass)
+//     // VALUES ('$email', '$username', '$password')
+//     // ";
 
-    $updateSql = "
-    UPDATE myuser SET email='$email', username='$username', pass='$password' WHERE id=$id
-    ";
+//     //  $conn->query($insertSql);
 
-    $conn->query($updateSql);
-}
+// }else{
+
+//     // $updateSql = "
+//     // UPDATE myuser SET email='$email', username='$username', pass='$password' WHERE id=$id
+//     // ";
+
+//     // $conn->query($updateSql);
+// }
 
 
 
 $showAllSql = "SELECT * FROM myuser";
 $result = $conn->query($showAllSql);
 
+
+echo "<a href='register.php'>Add</a>";
 
 createTable(); 
 
