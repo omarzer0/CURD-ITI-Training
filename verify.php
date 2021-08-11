@@ -1,26 +1,14 @@
 <?php
+require_once('user.php');
 
-if($_COOKIE == null){
-    echo "cookies is null";
-    header('location:index.php');
-}
+$user = new user();
 
-
-$conn = new mysqli("localhost", "root", "root","mydb");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
 
 $username = $_POST['username'];
 $pass = $_POST['password'];
+$tableName = "login";
 
-
-// echo $username;
-// echo $pass;
-$selectQuery = "SELECT * FROM login WHERE username='$username' and pass='$pass'";
-$result = $conn->query($selectQuery);
-$row = $result->fetch_assoc();
+$row = $user->getSingleRow($tableName,$username,$pass);
 if($row != null){
     setcookie('username',$username);
     setcookie('pass',$pass);
@@ -29,10 +17,8 @@ if($row != null){
     header('Location: server.php');
     echo "yes";
 }else{
+    // var_dump($row);
     header('Location: index.php');
     echo "no";
 }
-
-// var_dump($row);
-
 ?>

@@ -3,20 +3,20 @@
      if (confirm('Are you sure you want to proceed?')==true){
         console.log('yes');
         "<?php
-           if($_COOKIE == null){
-            echo "cookies is null";
-            header('location:index.php');
-        }
+            require_once('user.php');
+
+            if($_COOKIE == null){
+                echo "cookies is null";
+                header('location:index.php');
+            }
 
 
-            $conn = new mysqli("localhost", "root", "root","mydb");
+            $user = new user();
+            $isDeleted = $user->delete($_GET['id']);
+            if($isDeleted){
+                header('Location: server.php');
+            }
 
-            $userId = $_GET['id'];
-
-            $deleteQuery = "DELETE FROM myuser WHERE id=$userId";
-
-            $result = $conn->query($deleteQuery);
-            header('Location: server.php');
             ?>"
     } else {
         console.log('no');
